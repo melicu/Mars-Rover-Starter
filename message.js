@@ -5,7 +5,7 @@ class Message {
          throw Error("Message name required.");
       }
       this.commands = commands;
+      }
    }
 
-}
 module.exports = Message;
