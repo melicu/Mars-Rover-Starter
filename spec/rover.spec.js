@@ -34,10 +34,12 @@ describe("Rover class", function () {
     expect(response.results.length).toEqual(commands.length);
   });
 
-  // TEST 10
+   // TEST 10
+   // In the results array, the first object should contain "completed" key with "true" value.
+   // In the results array, the second object should contain "roverStatus" key with an object value that contains the current position, mode, and generatorWatts.
   test("responds correctly to the status check command", function () {
-    let commands = new Command("STATUS_CHECK")
-    let message = new Message("Testing Status Check", commands);
+    let commands = new Command('STATUS_CHECK');
+    let message = new Message('Testing status check command', commands);
     let rover = new Rover(98382);
     let response = rover.receiveMessage(message);
     expect(response.results[0].completed).toBeTruthy;
@@ -46,4 +48,18 @@ describe("Rover class", function () {
     expect(response.results[1].roverStatus.generatorWatts).toEqual(110);
   });
 
+  // TEST 11
+  // test("responds correctly to the mode change command", function () {
+
+  // });
+
+  // TEST 12
+  // test("responds with a false completed value when attempting to move in LOW_POWER mode", function () {
+
+  // });
+
+  // TEST 13
+  // test("responds with the position for the move command", function() {
+
+  // });
 });
