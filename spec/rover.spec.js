@@ -61,8 +61,17 @@ describe("Rover class", function () {
   });
 
   // TEST 12
-  // test("responds with a false completed value when attempting to move in LOW_POWER mode", function () {
-  // });
+  test("responds with a false completed value when attempting to move in LOW_POWER mode", function () {
+    let commands = [new Command('MOVE', 67942)];
+    let message = new Message('Testing move command when in low power mode', commands);
+    let rover = new Rover(98382);
+    rover.mode = "LOW_POWER";
+    let response = rover.receiveMessage(message);
+    expect(response.results[0].completed).toBeFalsy;
+    expect(rover.position).toEqual(98382);
+    expect(rover.mode).toEqual("LOW_POWER");
+    expect(rover.generatorWatts).toEqual(110);
+  });
 
   // TEST 13
   // test("responds with the position for the move command", function() {

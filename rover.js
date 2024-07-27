@@ -29,6 +29,16 @@ class Rover {
             }
             this.mode = message.commands[index].value;
             response.results.push(modeCommandResult);
+         } else {
+            let moveCommandResult = {}
+            if (this.mode === "LOW_POWER") {
+               moveCommandResult["completed"] = false;
+               response.results.push(moveCommandResult);
+            } else {
+               moveCommandResult["completed"] = true;
+               this.position = message.commands[index].value;
+               response.results.push(moveCommandResult);
+            }
          }
       };
       return response;
