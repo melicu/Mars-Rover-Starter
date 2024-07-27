@@ -38,24 +38,30 @@ describe("Rover class", function () {
    // In the results array, the first object should contain "completed" key with "true" value.
    // In the results array, the second object should contain "roverStatus" key with an object value that contains the current position, mode, and generatorWatts.
   test("responds correctly to the status check command", function () {
-    let commands = new Command('STATUS_CHECK');
+    let commands = [new Command('STATUS_CHECK'), new Command('MODE_CHANGE', 'LOW_POWER')];
     let message = new Message('Testing status check command', commands);
     let rover = new Rover(98382);
     let response = rover.receiveMessage(message);
     expect(response.results[0].completed).toBeTruthy;
-    expect(response.results[1].roverStatus.position).toEqual(98382);
-    expect(response.results[1].roverStatus.mode).toEqual("NORMAL");
-    expect(response.results[1].roverStatus.generatorWatts).toEqual(110);
+    expect(response.results[0].roverStatus.position).toEqual(98382);
+    expect(response.results[0].roverStatus.mode).toEqual("NORMAL");
+    expect(response.results[0].roverStatus.generatorWatts).toEqual(110);
   });
 
   // TEST 11
-  // test("responds correctly to the mode change command", function () {
-
-  // });
+  test("responds correctly to the mode change command", function () {
+    let commands = [new Command('MODE_CHANGE', 'LOW_POWER'), new Command('STATUS_CHECK')];
+    let message = new Message('Testing mode change command', commands);
+    let rover = new Rover(98382);
+    let response = rover.receiveMessage(message);
+    expect(response.results[0].completed).toBeTruthy;
+    expect(response.results[0].roverStatus.position).toEqual(98382);
+    expect(response.results[0].roverStatus.mode).toEqual("LOW_POWER");
+    expect(response.results[0].roverStatus.generatorWatts).toEqual(110);
+  });
 
   // TEST 12
   // test("responds with a false completed value when attempting to move in LOW_POWER mode", function () {
-
   // });
 
   // TEST 13

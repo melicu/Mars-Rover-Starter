@@ -23,7 +23,7 @@ class Rover {
                   mode: this.mode,
                   generatorWatts: this.generatorWatts
                }
-            }
+            } 
             response.results.push(commandResult);
          };
       return response;
